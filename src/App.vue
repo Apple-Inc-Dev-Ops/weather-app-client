@@ -1,5 +1,5 @@
 <template>
-  <Navbar v-if="!hideNavbar" />
+  <NavBar v-if="!hideNavbar" />
 
   <div
     :class="`py-3 d-flex flex-column ${mode === 'light' ? 'bg-light' : 'bg-dark'}`"
@@ -11,7 +11,7 @@
 
 <script setup>
 import { RouterView, useRoute } from 'vue-router'
-import Navbar from './components/Navbar.vue'
+import NavBar from './components/NavBar.vue'
 import { ref, computed } from 'vue'
 
 const route = useRoute()

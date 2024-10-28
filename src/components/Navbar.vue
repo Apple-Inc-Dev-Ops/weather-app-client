@@ -17,7 +17,7 @@
           </button>
 
           <ul v-if="cities.length > 0" class="dropdown-menu show" aria-labelledby="dropdownMenu2" data-bs-popper="static">
-            <li v-for="city in cities">
+            <li v-for="city in cities" :key="city.display_name">
               <button @click="selectCity(city)" class="dropdown-item" type="button">{{ city.display_name }}</button>
             </li>
           </ul>

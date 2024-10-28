@@ -9,7 +9,7 @@
     </div>
 
     <div class="overflow-auto" style="height:80vh">
-      <div class="mb-3" v-for="fav in favs">
+      <div class="mb-3" v-for="fav in favs" :key="`${fav.lat}-${fav.lon}`">
         <WeatherHeader :lat="Number(fav.lat)" :lon="Number(fav.lon)" />
       </div>
     </div>
