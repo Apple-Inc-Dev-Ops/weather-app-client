@@ -61,6 +61,10 @@
             Fahrenheit
           </button>
         </div>
+        <div v-if="isLoggedIn" class="d-flex align-items-center">
+          <span :class="`me-3 ${mode === 'light' ? 'text-dark' : 'text-light'}`">{{ username }}</span>
+          <button @click="logout" class="btn btn-outline-danger btn-sm">Logout</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -69,6 +73,7 @@
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 import { homeStores } from '../stores/home';
 import { favouritesStores } from '../stores/favourites';
 
@@ -80,6 +85,18 @@ const isLoading = ref(false);
 const city = ref('');
 const timeoutId = ref(null);
 const selectedCity = ref(null);
+
+const isLoggedIn = ref(true);
+const username = ref("User123");
+
+const router = useRouter()
+
+function logout() {
+  isLoggedIn.value = false;
+  username.value = '';
+  localStorage.removeItem('user');
+  router.push('/loading')
+}
 
 function celcius() {
   homeStore.unit = "";

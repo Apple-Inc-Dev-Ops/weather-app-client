@@ -19,6 +19,6 @@ const route = useRoute()
 const mode = ref(localStorage.getItem('mode') ?? 'light')
 
 const hideNavbar = computed(() => {
-  return route.path === '/login' || route.path === '/register'
+  return route.path === '/login' || route.path === '/register' || route.path === '/loading'
 })
 </script>
