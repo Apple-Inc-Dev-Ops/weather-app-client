@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="submitLogin">
     <InputField
-      v-model="email"
-      label="Email"
-      id="email"
-      type="email"
-      placeholder="example@example.com"
+      v-model="username"
+      label="Username"
+      id="username"
+      type="text"
+      placeholder="johndoe"
     />
     <InputField
       v-model="password"
@@ -23,10 +23,10 @@ import { ref } from 'vue'
 import InputField from './InputField.vue'
 import AuthButton from './AuthButton.vue'
 
-const email = ref('')
+const username = ref('')
 const password = ref('')
 
 const submitLogin = () => {
-  console.log('Login data:', email.value, password.value)
+  console.log('Login data:', username.value, password.value)
 }
 </script>
