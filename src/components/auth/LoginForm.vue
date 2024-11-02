@@ -20,13 +20,52 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 import InputField from './InputField.vue'
 import AuthButton from './AuthButton.vue'
 
 const username = ref('')
 const password = ref('')
+const router = useRouter()
 
-const submitLogin = () => {
-  console.log('Login data:', username.value, password.value)
+const submitLogin = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value
+      })
+    })
+
+    const data = await response.json()
+    if (data.status === 'SUCCESS') {
+      await Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: 'You will be redirected shortly.',
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+      router.push('/')
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: data.error || 'Something went wrong, please try again.'
+      })
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Failed to connect to the server. Please try again later.'
+    })
+  }
 }
 </script>

@@ -48,7 +48,9 @@ const submitRegister = async () => {
         icon: 'success',
         title: 'Registration Successful',
         text: 'Your account has been created successfully!',
-        confirmButtonText: 'Go to Login'
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false
       })
       router.push('/login')
     } else {
