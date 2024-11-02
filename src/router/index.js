@@ -11,29 +11,46 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/favourites',
       name: 'favourites',
-      component: FavouritesView
+      component: FavouritesView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/collection/:code',
       name: 'collection',
-      component: CollectionView
+      component: CollectionView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      meta: { requiresGuest: true }
     },
     {
       path: '/register',
       name: 'register',
-      component: RegisterView
+      component: RegisterView,
+      meta: { requiresGuest: true }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true'
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else if (to.meta.requiresGuest && isAuthenticated) {
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router
