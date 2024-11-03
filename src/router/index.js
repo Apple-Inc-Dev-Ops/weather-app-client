@@ -4,6 +4,7 @@ import FavouritesView from '../views/FavouritesView.vue'
 import CollectionView from '../views/CollectionView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import LoadingView from '../views/LoadingView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
       name: 'register',
       component: RegisterView,
       meta: { requiresGuest: true }
+    },
+    {
+      path: '/loading',
+      name: 'loading',
+      component: LoadingView
     }
   ]
 })
