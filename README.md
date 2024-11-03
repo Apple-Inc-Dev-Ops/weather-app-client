@@ -1,10 +1,13 @@
 # References
 
-### Weather Forecast ###
-* [Open Meteo](https://open-meteo.com/)
+### Weather Forecast
 
-### Geocoding ###
-* [OpenStreetMap](https://openstreetmap.org/)
+- [Open Meteo](https://open-meteo.com/)
 
-### Sharing API ###
-* [Whatsapp Mailto Chat](https://faq.whatsapp.com/5913398998672934)
+### Geocoding
+
+- [OpenStreetMap](https://openstreetmap.org/)
+
+### Sharing API
+
+- [Whatsapp Mailto Chat](https://faq.whatsapp.com/5913398998672934)
