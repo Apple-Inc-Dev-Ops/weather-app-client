@@ -1,7 +1,7 @@
 <template>
     <div 
       class="d-flex container position-relative" 
-      style="color: white;background-color: ;"
+      style="color: white;"
       :style="{backgroundColor : store.dataWeatherHeader.weatherColor }"
     >
     
@@ -105,37 +105,28 @@
     import IconUV from '@/components/icons/IconUV.vue';
     import IconPressure from '@/components/icons/IconPressure.vue';
     import axios from 'axios';
+    import { toggleFavorites, getFavorites } from '@/utils/favorites';
     import {homeStores} from '@/stores/home';
     import {ref} from 'vue';
 
     const store = homeStores();
-    const favLocations = ref([]);
     const isFav = ref(false);
-    const favouriteLocations = localStorage.getItem('favouriteLocations');
 
-    if(favouriteLocations !== null) {
-      favLocations.value = JSON.parse(favouriteLocations);
-    }
-
-    function saveLocation() {
-      favLocations.value.push({
-        lat: store.selectedLatLon[0],
-        lon: store.selectedLatLon[1]
-      });
-      localStorage.setItem('favouriteLocations', JSON.stringify(favLocations.value));
+    async function saveLocation() {
+      await toggleFavorites(store.selectedLatLon[0], store.selectedLatLon[1]);
       checkIsFav();
     }
 
-    function removeLocation() {
-      localStorage.setItem('favouriteLocations', JSON.stringify(favLocations.value.filter((l) => l.lon !== store.selectedLatLon[1] && l.lat !== store.selectedLatLon[0])));
-      checkIsFav();
+    async function removeLocation() {
+      await toggleFavorites(store.selectedLatLon[0], store.selectedLatLon[1]);
+      await checkIsFav();
     }
 
-    function checkIsFav() {
-      const favLoc = localStorage.getItem('favouriteLocations') ?? '[]';
+    async function checkIsFav() {
+      const favLoc = (await getFavorites()).data;
 
-      for (const location of JSON.parse(favLoc)) {
-        if(location.lat === store.selectedLatLon[0] && location.lon === store.selectedLatLon[1]) {
+      for (const location of favLoc) {
+        if(location.lat == store.selectedLatLon[0] && location.long == store.selectedLatLon[1]) {
           isFav.value = true;
           return;
         }
