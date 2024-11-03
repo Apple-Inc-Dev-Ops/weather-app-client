@@ -10,7 +10,7 @@
 
     <div class="overflow-auto" style="height:80vh">
       <div class="mb-3" v-for="fav in favs" :key="`${fav.lat}-${fav.lon}`">
-        <WeatherHeader :lat="Number(fav.lat)" :lon="Number(fav.lon)" />
+        <WeatherHeader :lat="Number(fav.lat)" :lon="Number(fav.long)" />
       </div>
     </div>
   </div>
@@ -18,17 +18,27 @@
 
 <script setup>
   import WeatherHeader from '../components/favourites/WeatherHeader.vue';
-  import {ref} from 'vue';
+  import { ref, onMounted } from 'vue';
+  import { getFavorites } from "../utils/favorites.js";
   import { favouritesStores } from '../stores/favourites';
 
   const mode = ref(localStorage.getItem('mode') ?? 'light');
   const favouritesStore = favouritesStores();
-  const favLocation = localStorage.getItem('favouriteLocations');
-  const favs = ref(JSON.parse(favLocation ?? '[]'));
+  const favs = ref([]);
 
   async function share() {
-    const url = `${window.location.origin}/collection/${window.btoa(favLocation)}`;
+    const data = JSON.stringify((await getFavorites()).data);
+    const url = `${window.location.origin}/collection/${window.btoa(data)}`;
     await navigator.clipboard.writeText(url);
     alert('URL copied to clipboard');
   }
+
+  async function getFavs() {
+    const fav = (await getFavorites()).data;
+    favs.value = fav;
+  }
+
+  onMounted(() => {
+    getFavs();
+  })
 </script>

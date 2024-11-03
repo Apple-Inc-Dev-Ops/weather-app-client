@@ -6,7 +6,7 @@
             v-for="(i, index) in store.data7Days"
             :key="index"
             >
-                <div class="d-flex flex-column align-items-center p-2" style="background-color: lightslategray; border-radius: 5%;">
+                <div class="d-flex flex-column align-items-center p-2 mb-3" style="background-color: lightslategray; border-radius: 5%;">
                     <div class="d-flex flex-column align-items-center text-white">
                         <h3>
                             {{ i["day"] }}

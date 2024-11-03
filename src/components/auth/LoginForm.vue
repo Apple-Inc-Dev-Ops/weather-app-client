@@ -46,6 +46,7 @@ const submitLogin = async () => {
     if (data.status === 'SUCCESS') {
       localStorage.setItem('isLoggedIn', 'true')
       localStorage.setItem('userId', data.data.id)
+      localStorage.setItem('username', data.data.username)
 
       await Swal.fire({
         icon: 'success',

@@ -1,7 +1,7 @@
 <template>
     <div 
       class="d-flex container position-relative" 
-      style="color: white;background-color: ;"
+      style="color: white;"
       :style="{backgroundColor : weather.weatherColor }"
     >
     
@@ -106,6 +106,7 @@
     import IconPressure from '@/components/icons/IconPressure.vue';
     import axios from 'axios';
     import {ref} from 'vue';
+    import { toggleFavorites, getFavorites } from '../../utils/favorites';
     import { homeStores } from '../../stores/home';
 
     const homeStore = homeStores();
@@ -132,28 +133,21 @@
     });
     const isFav = ref(false);
 
-    function saveLocation() {
-      const favouriteLocations = JSON.parse(localStorage.getItem('favouriteLocations') ?? '[]');
-
-      favouriteLocations.push({
-        lat: props.lat,
-        lon: props.lon
-      });
-      localStorage.setItem('favouriteLocations', JSON.stringify(favouriteLocations));
-      checkIsFav();
+    async function saveLocation() {
+      await toggleFavorites(props.lat, props.lon);
+      await checkIsFav();
     }
 
-    function removeLocation() {
-      const favouriteLocations = JSON.parse(localStorage.getItem('favouriteLocations') ?? '[]');
-      localStorage.setItem('favouriteLocations', JSON.stringify(favouriteLocations.filter((l) => l.lon != props.lon && l.lat != props.lat)));
-      checkIsFav();
+    async function removeLocation() {
+      await toggleFavorites(props.lat, props.lon);
+      await checkIsFav();
     }
 
-    function checkIsFav() {
-      const favLoc = localStorage.getItem('favouriteLocations') ?? '[]';
+    async function checkIsFav() {
+      const favLoc = (await getFavorites()).data;
 
-      for (const location of JSON.parse(favLoc)) {
-        if(location.lat == props.lat && location.lon == props.lon) {
+      for (const location of favLoc) {
+        if(location.lat == props.lat && location.long == props.lon) {
           isFav.value = true;
           return;
         }
