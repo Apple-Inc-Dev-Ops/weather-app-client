@@ -24,6 +24,7 @@ import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import InputField from './InputField.vue'
 import AuthButton from './AuthButton.vue'
+import { register } from '../../utils/auth'
 
 const username = ref('')
 const password = ref('')
@@ -31,18 +32,8 @@ const router = useRouter()
 
 const submitRegister = async () => {
   try {
-    const response = await fetch('http://localhost:3000/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      })
-    })
+    const data = await register(username.value, password.value)
 
-    const data = await response.json()
     if (data.status === 'SUCCESS') {
       await Swal.fire({
         icon: 'success',
