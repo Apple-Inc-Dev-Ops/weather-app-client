@@ -24,6 +24,7 @@ import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import InputField from './InputField.vue'
 import AuthButton from './AuthButton.vue'
+import { login } from '../../utils/auth'
 
 const username = ref('')
 const password = ref('')
@@ -31,18 +32,8 @@ const router = useRouter()
 
 const submitLogin = async () => {
   try {
-    const response = await fetch('http://localhost:3000/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      })
-    })
+    const data = await login(username.value, password.value)
 
-    const data = await response.json()
     if (data.status === 'SUCCESS') {
       localStorage.setItem('isLoggedIn', 'true')
       localStorage.setItem('userId', data.data.id)
