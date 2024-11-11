@@ -1,6 +1,14 @@
 <template>
   <nav :class="`navbar navbar-expand-lg ${mode === 'light' ? 'bg-light' : 'bg-dark'}`">
     <div class="container">
+
+      <!-- <div>
+        <img src="/images/logo.png" width="30" height="30" alt="">
+        &nbsp;
+        <span class="fw-bold fs-5">Apple Weather</span>
+        &emsp;
+      </div> -->
+
       <a class="navbar-brand" href="#">
         <form class="d-flex dropdown" @submit.prevent="findCities()">
           <input
