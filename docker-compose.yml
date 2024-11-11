@@ -1,9 +1,16 @@
 ---
 services:
   app:
+    restart: unless-stopped
     container_name: weather_client
     build:
       dockerfile: Dockerfile
       context: .
     ports:
       - 80:80
+    networks:
+      - weather_app
+
+networks:
+  weather_app:
+      name: weather_app
