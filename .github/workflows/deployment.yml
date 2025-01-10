@@ -1,0 +1,19 @@
+name: Build and Publish Image to Docker Hub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@4
+      - name: build image
+        run: docker build . -t ${{ vars.DOCKER_HUB_USERNAME }}/weather-app-client:latest
+      - name: push image to docker hub
+        run: |
+          docker login -u ${{ vars.DOCKER_HUB_USERNAME }} -p {{ secrets.DOCKER_HUB_TOKEN }}
+          docker push ${{ vars.DOCKER_HUB_USERNAME }}/weather-app-client:latest
