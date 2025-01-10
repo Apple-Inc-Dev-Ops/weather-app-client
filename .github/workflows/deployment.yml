@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
       - name: build image
         run: docker build . -t ${{ vars.DOCKER_HUB_USERNAME }}/weather-app-client:latest
       - name: push image to docker hub
