@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weather-app-auth
+  name: weather-app-client
   namespace: weather-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: weather-app-auth
+      app: weather-app-client
   template:
     metadata:
       labels:
-        app: weather-app-auth
+        app: weather-app-client
     spec:
       containers:
-        - name: weather-app-auth
-          image: pietervardi/weather-app-auth:latest
+        - name: weather-app-client
+          image: pietervardi/weather-app-client:latest
           ports:
             - containerPort: 80
