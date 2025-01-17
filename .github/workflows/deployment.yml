@@ -20,4 +20,4 @@ jobs:
           username: pietervardi
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: push image
-        run: docker push pietervardi/weather-app-client:latest
+        run: docker push pietervardi/weather-app-client:1.0.0
