@@ -5,7 +5,7 @@
       <div>
         <img src="/images/logo.png" width="30" height="30" alt="">
         &nbsp;
-        <span class="fw-bold fs-5">Apple Weather</span>
+        <span class="fw-bold fs-5">Weather Checker</span>
         &emsp;
       </div>
 
