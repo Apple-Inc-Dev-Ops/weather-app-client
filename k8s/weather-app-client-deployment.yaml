@@ -15,6 +15,13 @@ spec:
     spec:
       containers:
         - name: weather-app-client
-          image: pietervardi/weather-app-client:1.0.0
+          image: pietervardi/weather-app-client:latest
           ports:
             - containerPort: 80
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+            requests:
+              memory: 256Mi
+              cpu: '0.2'
