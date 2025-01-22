@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: weather-app-client
-          image: pietervardi/weather-app-client:1.0.1
+          image: pietervardi/weather-app-client:1.0.2
           ports:
             - containerPort: 80
           resources:
